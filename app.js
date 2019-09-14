@@ -1,6 +1,8 @@
 const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const path = require('path');
+const ejs = require('ejs')
 
 const MONGOURL = "";
 const PORT = 3000;
@@ -16,7 +18,7 @@ const User = require('./models/User');
 const Product = require('./models/Product');
 
 //setup EJS view engine
-app.use('view', path.join(__dirname, 'views'));
+app.set('view', path.join(__dirname, 'views'));
 app.set('view engine', ejs);
 
 app.use(logger('dev'));
@@ -31,19 +33,30 @@ app.use(function(err, req, res, next) {
     })
 })
 
+//Remove comments from mongodb
+//connection of you have mongodb URL
+
 //connect to MONGODB
-mongoose.connect(MONGOURL)
-    .then(() => {
-        console.log("Database Connected");
-    })
-    .then(() => {
-        app.listen(PORT, () => {
-            console.log('App connected and Listening');
-        })
-    })
-    .catch((err) => {
-        console.log(err);
-    })
+// mongoose.connect(MONGOURL)
+//     .then(() => {
+//         console.log("Database Connected");
+//     })
+//     .then(() => {
+//         app.listen(PORT, () => {
+//             console.log('App connected and Listening');
+//         })
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//     })
+
+//delete code section 
+//if you have mongodb
+//url
+app.listen(PORT, (data) => {
+    console.log('App is connected and listening at '+PORT)
+})
+    
 
 module.exports = app;
 
