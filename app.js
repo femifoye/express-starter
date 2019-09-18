@@ -13,8 +13,7 @@ const app = express();
 
 
 //setup Routes
-//const adminRouter = require('./routes/admin');
-const userRouter = require('./routes/user');
+const pageRouter = require('./routes/page');
 
 //setup Models
 const User = require('./models/User');
@@ -25,11 +24,11 @@ app.use(function(req, res, next){
     next();
 })
 //app.use(adminRouter);
-app.use(userRouter)
+app.use(pageRouter)
 
 //setup EJS view engine
-app.set('view', path.join(__dirname, 'views'));
-app.set('view engine', ejs);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.urlencoded({ extended: false }));
