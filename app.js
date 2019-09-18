@@ -1,26 +1,40 @@
-const express = require('express');
-const logger = require('morgan');
-const mongoose = require('mongoose');
+const express = require('express');  
+const logger = require('morgan');  
+const mongoose = require('mongoose');  
+const path = require('path');
+const ejs = require('ejs');
+const sass = require('node-sass');
+const fs = require('fs');
 
 const MONGOURL = "";
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+
 //setup Routes
-const adminRouter = require('./routes/admin');
+//const adminRouter = require('./routes/admin');
 const userRouter = require('./routes/user');
 
 //setup Models
 const User = require('./models/User');
 const Product = require('./models/Product');
 
+//Use Routes
+app.use(function(req, res, next){
+    next();
+})
+//app.use(adminRouter);
+app.use(userRouter)
+
 //setup EJS view engine
-app.use('view', path.join(__dirname, 'views'));
+app.set('view', path.join(__dirname, 'views'));
 app.set('view engine', ejs);
 
 app.use(logger('dev'));
 app.use(express.urlencoded({ extended: false }));
+
+
 
 //Catch all errors
 app.use(function(err, req, res, next) {
@@ -32,18 +46,23 @@ app.use(function(err, req, res, next) {
 })
 
 //connect to MONGODB
-mongoose.connect(MONGOURL)
-    .then(() => {
-        console.log("Database Connected");
-    })
-    .then(() => {
-        app.listen(PORT, () => {
-            console.log('App connected and Listening');
-        })
-    })
-    .catch((err) => {
-        console.log(err);
-    })
+// mongoose.connect(MONGOURL)
+//     .then(() => {
+//         console.log("Database Connected");
+//     })
+//     .then(() => {
+//         app.listen(PORT, () => {
+//             console.log('App connected and Listening');
+//         })
+//     })
+//     .catch((err) => {
+//         console.log(err);
+//     })
+
+app.listen(PORT, (data) => {
+    console.log('App is connected and listening at '+PORT)
+})
+    
 
 module.exports = app;
 
