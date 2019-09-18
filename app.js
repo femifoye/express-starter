@@ -45,6 +45,9 @@ app.use(function(err, req, res, next) {
     })
 })
 
+//Remove comments from mongodb
+//connection of you have mongodb URL
+
 //connect to MONGODB
 // mongoose.connect(MONGOURL)
 //     .then(() => {
@@ -59,6 +62,9 @@ app.use(function(err, req, res, next) {
 //         console.log(err);
 //     })
 
+//delete code section 
+//if you have mongodb
+//url
 app.listen(PORT, (data) => {
     console.log('App is connected and listening at '+PORT)
 })
